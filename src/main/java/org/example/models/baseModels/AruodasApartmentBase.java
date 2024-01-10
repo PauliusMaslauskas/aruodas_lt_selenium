@@ -1,11 +1,11 @@
-package org.example.models;
+package org.example.models.baseModels;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class AruodasSellApt extends AruodasBase {
+public class AruodasApartmentBase extends AruodasBase {
 
     public int houseNumber;
     public int aptNumber;
@@ -14,17 +14,14 @@ public class AruodasSellApt extends AruodasBase {
     public int numberOfRooms;
     public int aptFloor;
     public int totalBuildingFloorNumber;
-    public int yearOfConstruction;
     public String buildingType;
     public String equipment;
     public String heating;
     public String features;
     public String energyClass;
-    public String interestedChange;
-    public String interestedAuction;
 
 
-    public AruodasSellApt(String municipality, String settlement, String microdistrict, String street, String description, String photos, String youtubeLink, int price, String phoneNumber, String email, int houseNumber, int aptNumber, String rcNumber, int area, int numberOfRooms, int aptFloor, int totalBuildingFloorNumber, int yearOfConstruction, String buildingType, String equipment, String heating, String features, String energyClass, String interestedChange, String interestedAuction) {
+    public AruodasApartmentBase(String municipality, String settlement, String microdistrict, String street, String description, String photos, String youtubeLink, int price, String phoneNumber, String email, int houseNumber, int aptNumber, String rcNumber, int area, int numberOfRooms, int aptFloor, int totalBuildingFloorNumber, String buildingType, String equipment, String heating, String features, String energyClass) {
         super(municipality, settlement, microdistrict, street, description, photos, youtubeLink, price, phoneNumber, email);
         this.houseNumber = houseNumber;
         this.aptNumber = aptNumber;
@@ -33,14 +30,11 @@ public class AruodasSellApt extends AruodasBase {
         this.numberOfRooms = numberOfRooms;
         this.aptFloor = aptFloor;
         this.totalBuildingFloorNumber = totalBuildingFloorNumber;
-        this.yearOfConstruction = yearOfConstruction;
         this.buildingType = buildingType;
         this.equipment = equipment;
         this.heating = heating;
         this.features = features;
         this.energyClass = energyClass;
-        this.interestedChange = interestedChange;
-        this.interestedAuction = interestedAuction;
     }
 
     @Override
@@ -53,14 +47,11 @@ public class AruodasSellApt extends AruodasBase {
         fillArea();
         fillRoomNr();
         fillFloor();
-        fillYearOfConstruction();
         selectBuildingType();
         selectEquipment();
         selectHeatingCheckBox();
         selectAptFeatures();
         selectEnergyClass();
-        ifInterestedChange();
-        ifInterestedAuction();
     }
 
     public void fillHouseNumber() {
@@ -103,11 +94,6 @@ public class AruodasSellApt extends AruodasBase {
 
     }
 
-    public void fillYearOfConstruction() {
-        WebElement inputField = driver.findElement(By.xpath("//*[@id=\"newObjectForm\"]/ul/li[17]/div[1]/span[1]/span/input"));
-        inputField.sendKeys(String.valueOf(yearOfConstruction));
-    }
-
     public void selectBuildingType() {
         List<WebElement> listOfTypes = driver.findElements(By.className("input-buttons-wrapper")).get(1).findElements(By.className("input-button-text"));
 
@@ -129,20 +115,18 @@ public class AruodasSellApt extends AruodasBase {
     }
 
     public void selectHeatingCheckBox() {
-        List<WebElement> listOfTypes = driver.findElements(By.className("input-style-checkbox")).get(5).findElements(By.tagName("label"));
+        checkBoxFilter(heating);
 
-        for (String type : splitString(heating)) {
-            listOfTypes.stream()
-                    .filter(t -> t.getText().equals(type))
-                    .forEach(WebElement::click);
-
-        }
     }
 
     public void selectAptFeatures() {
-        WebElement extendFeatures = driver.findElement(By.xpath("//*[@id=\"newObjectForm\"]/ul/li[25]/span"));
+        WebElement extendFeatures = driver.findElement(By.cssSelector("#newObjectForm > ul > li.field-extra-row-closed > span"));
         extendFeatures.click();
 
+        checkBoxFilter(features);
+    }
+
+    private void checkBoxFilter(String features) {
         List<WebElement> findLiElements = driver.findElements(By.className("input-style-checkbox"));
 
         List<WebElement> findLabelElements = findLiElements.stream()
@@ -165,18 +149,5 @@ public class AruodasSellApt extends AruodasBase {
                 .ifPresent(WebElement::click);
     }
 
-    public void ifInterestedChange() {
-        List<WebElement> interestedChangeLabel = driver.findElements(By.className("form-field-input-container")).get(1).findElements(By.className("input-style-checkbox"));
-        if (interestedChange.equals("Taip")) {
-            interestedChangeLabel.forEach(WebElement::click);
-        }
 
-    }
-
-    public void ifInterestedAuction() {
-        List<WebElement> interestedChangeLabel = driver.findElements(By.className("form-field-input-container")).get(2).findElements(By.className("input-style-checkbox"));
-        if (interestedChange.equals("Taip")) {
-            interestedChangeLabel.forEach(WebElement::click);
-        }
-    }
 }

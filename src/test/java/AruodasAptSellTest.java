@@ -1,6 +1,5 @@
-import org.example.models.AruodasBuyApt;
-import org.example.models.AruodasSellApt;
-import org.example.models.AruodasBase;
+import org.example.models.AruodasAptSell;
+import org.example.models.baseModels.AruodasBase;
 import org.testng.annotations.BeforeClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,7 +9,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class AruodasBuyAptTest {
+public class AruodasAptSellTest {
 
     public static WebDriver driver;
 
@@ -23,8 +22,8 @@ public class AruodasBuyAptTest {
     }
 
     @Test
-    public void allFieldsValid(){
-        AruodasBuyApt aruodasBuyApt = new AruodasBuyApt(
+    public void testAllFieldsValid(){
+        AruodasAptSell aruodasAptSell = new AruodasAptSell(
                 "Vilnius",
                 "Vilniaus m.",
                 "Bajorai",
@@ -35,10 +34,22 @@ public class AruodasBuyAptTest {
                 100,
                 "64736093",
                 "emeilas@gnail.com",
-                "Patalpos pirkti"
+                10,
+                10,
+                "1111-1111-1111:1111",
+                20,
+                2,
+                2,
+                9,
+                "Blokinis",
+                "Pamatai",
+                "Dujinis, Centrinis, Elektra",
+                "Pirtis, Terasa, Balkonas, Internetas, Buto dalis, Signalizacija",
+                "A+",
+                1889
         );
 
-        aruodasBuyApt.fillFields();
+        aruodasAptSell.fillFields();
     }
 
     @BeforeMethod
@@ -58,6 +69,8 @@ public class AruodasBuyAptTest {
 
     @AfterClass
     public void afterClass(){
-        // driver.quit();
+       // driver.quit();
     }
 }
+
+

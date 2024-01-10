@@ -1,5 +1,5 @@
-import org.example.models.AruodasSellApt;
-import org.example.models.AruodasBase;
+import org.example.models.AruodasAptRent;
+import org.example.models.baseModels.AruodasBase;
 import org.testng.annotations.BeforeClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,7 +9,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class AruodasSellAptTest {
+public class AruodasAptRentTest {
 
     public static WebDriver driver;
 
@@ -17,13 +17,13 @@ public class AruodasSellAptTest {
     public static void beforeClass(){
         driver = new ChromeDriver();
         AruodasBase.driver = driver;
-        driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=1");
+        driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=4");
         accpetCookies();
     }
 
     @Test
-    public void allFieldsValid(){
-        AruodasSellApt aruodasSellApt = new AruodasSellApt(
+    public void testAllFieldsValid(){
+        AruodasAptRent aruodasAptRent = new AruodasAptRent(
                 "Vilnius",
                 "Vilniaus m.",
                 "Bajorai",
@@ -41,26 +41,28 @@ public class AruodasSellAptTest {
                 2,
                 2,
                 9,
-                1998,
                 "Blokinis",
                 "Pamatai",
                 "Dujinis, Centrinis, Elektra",
                 "Pirtis, Terasa, Balkonas, Internetas, Buto dalis, Signalizacija",
                 "A+",
                 "Taip",
-                "Taip"
+                "Taip1",
+                1998
         );
 
-        aruodasSellApt.fillFields();
+        aruodasAptRent.fillFields();
+
     }
+
 
     @BeforeMethod
     public void getWebsite(){
-        driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=1");
+        driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=4");
     }
 
     public static void accpetCookies() {
-        driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=1");
+        driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=4");
         driver.findElement(By.cssSelector("#onetrust-accept-btn-handler")).click();
     }
 
@@ -71,8 +73,6 @@ public class AruodasSellAptTest {
 
     @AfterClass
     public void afterClass(){
-       // driver.quit();
+        // driver.quit();
     }
 }
-
-

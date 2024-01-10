@@ -1,4 +1,5 @@
 import org.example.models.AruodasAptSell;
+import org.example.models.Helper;
 import org.example.models.baseModels.AruodasBase;
 import org.testng.annotations.BeforeClass;
 import org.openqa.selenium.By;
@@ -12,17 +13,15 @@ import org.testng.annotations.Test;
 public class AruodasAptSellTest {
 
     public static WebDriver driver;
+    public static String pageUrl = "https://www.aruodas.lt/ideti-skelbima/?obj=1";
 
     @BeforeClass
-    public static void beforeClass(){
-        driver = new ChromeDriver();
-        AruodasBase.driver = driver;
-        driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=1");
-        accpetCookies();
+    public static void beforeClass() {
+        Helper.driverInit(pageUrl);
     }
 
     @Test
-    public void testAllFieldsValid(){
+    public void testAllFieldsValid() {
         AruodasAptSell aruodasAptSell = new AruodasAptSell(
                 "Vilnius",
                 "Vilniaus m.",
@@ -53,8 +52,8 @@ public class AruodasAptSellTest {
     }
 
     @BeforeMethod
-    public void getWebsite(){
-        driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=1");
+    public void getWebsite() {
+        driver.get(pageUrl);
     }
 
     public static void accpetCookies() {
@@ -63,13 +62,16 @@ public class AruodasAptSellTest {
     }
 
     @AfterMethod
-    public void wait1S(){
-        try {Thread.sleep(1000);} catch (InterruptedException e) {}
+    public void wait1S() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+        }
     }
 
     @AfterClass
-    public void afterClass(){
-       // driver.quit();
+    public void afterClass() {
+        driver.quit();
     }
 }
 

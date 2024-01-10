@@ -11,16 +11,15 @@ import org.testng.annotations.Test;
 public class AruodasAptRentTest {
 
     public static WebDriver driver;
-
-    public static String pageUrl = "https://www.aruodas.lt/ideti-skelbima/?obj=4" ;
+    public static String pageUrl = "https://www.aruodas.lt/ideti-skelbima/?obj=4";
 
     @BeforeClass
-    public static void beforeClass(){
+    public static void beforeClass() {
         Helper.driverInit(pageUrl);
     }
 
     @Test
-    public void testAllFieldsValid(){
+    public void testAllFieldsValid() {
         AruodasAptRent aruodasAptRent = new AruodasAptRent(
                 "Vilnius",
                 "Vilniaus m.",
@@ -55,18 +54,21 @@ public class AruodasAptRentTest {
 
 
     @BeforeMethod
-    public void getWebsite(){
-        driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=4");
+    public void getWebsite() {
+        driver.get(pageUrl);
     }
 
 
     @AfterMethod
-    public void wait1S(){
-        try {Thread.sleep(1000);} catch (InterruptedException e) {}
+    public void wait1S() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+        }
     }
 
     @AfterClass
-    public void afterClass(){
-        // driver.quit();
+    public void afterClass() {
+        driver.quit();
     }
 }

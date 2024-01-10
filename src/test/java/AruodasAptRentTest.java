@@ -1,9 +1,8 @@
 import org.example.models.AruodasAptRent;
-import org.example.models.baseModels.AruodasBase;
+import org.example.models.Helper;
 import org.testng.annotations.BeforeClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -13,12 +12,11 @@ public class AruodasAptRentTest {
 
     public static WebDriver driver;
 
+    public static String pageUrl = "https://www.aruodas.lt/ideti-skelbima/?obj=4" ;
+
     @BeforeClass
     public static void beforeClass(){
-        driver = new ChromeDriver();
-        AruodasBase.driver = driver;
-        driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=4");
-        accpetCookies();
+        Helper.driverInit(pageUrl);
     }
 
     @Test
@@ -61,10 +59,6 @@ public class AruodasAptRentTest {
         driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=4");
     }
 
-    public static void accpetCookies() {
-        driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=4");
-        driver.findElement(By.cssSelector("#onetrust-accept-btn-handler")).click();
-    }
 
     @AfterMethod
     public void wait1S(){
